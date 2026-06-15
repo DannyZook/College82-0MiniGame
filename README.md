@@ -1,14 +1,15 @@
-# Campus Draft
+# Campus Draft V2
 
-A simple Streamlit game inspired by the rapid draft-and-result loop of roster-building games.
+A Streamlit drafting game with 60+ universities, 36 majors, degree-specific scoring, richer outcomes, and optional AI career stories.
 
-## Gameplay
+## Files
 
-- Three rounds: Undergraduate, Master's, and PhD
-- Each round reveals a random major and three universities
-- Draft one university for each credential
-- Use one major reroll and one university reroll per game
-- Receive a fictional career outcome, net-worth tier, and campus identity
+- `app.py` — interface and session flow
+- `game_logic.py` — scoring, outcomes, identities, and fallback stories
+- `story_generator.py` — optional OpenAI story generation
+- `data/universities.json` — university game data
+- `data/majors.json` — major data
+- `data/synergies.json` — cross-major bonuses
 
 ## Run locally
 
@@ -17,14 +18,17 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy on Streamlit Community Cloud
+## Optional AI stories
 
-1. Create a GitHub repository.
-2. Upload `app.py`, `requirements.txt`, and this README.
-3. In Streamlit Community Cloud, choose **Deploy a public app from GitHub**.
-4. Select the repository and set the main file path to `app.py`.
-5. Deploy.
+Create `.streamlit/secrets.toml` locally:
 
-## Notes
+```toml
+OPENAI_API_KEY = "your-key"
+OPENAI_MODEL = "gpt-4.1-mini"
+```
 
-The ratings and outcomes are fictional game-design estimates. The app uses university names as plain text and does not use official logos or branding.
+Never commit the real secrets file. The included `.gitignore` blocks it.
+
+On Streamlit Community Cloud, open the app settings, choose **Secrets**, and paste the same two lines there.
+
+Without an API key, the game still works and uses a built-in deterministic story generator.
